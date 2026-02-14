@@ -1,0 +1,17 @@
+Now when you run it, you'll see the plan breakdown:
+
+```
+Task submitted: what is the time
+Plan created: 1 steps
+  [0] retrieve_current_system_time (action_step) | tools: Bash
+Validation passed: 13 checks passed
+Step 0 started: retrieve_current_system_time
+Step 0 completed: retrieve_current_system_time
+  Output: { ... }
+Task completed | Cost: $0.00 | Duration: 8.3s
+
+Result:
+{ ... }
+```
+
+Try it out.
