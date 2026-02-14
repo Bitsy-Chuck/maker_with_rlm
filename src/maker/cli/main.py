@@ -21,28 +21,32 @@ def parse_args(argv=None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+def print_plan(plan) -> str:
+    """Format a Plan for CLI display."""
+    lines = [f"Plan created: {len(plan.steps)} steps"]
+    lines.append(f"  Reasoning: {plan.reasoning.strip()[:200]}")
+    lines.append("")
+    for step in plan.steps:
+        primary = ", ".join(step.primary_tools) if step.primary_tools else "none"
+        fallback = ", ".join(step.fallback_tools) if step.fallback_tools else "none"
+        inputs = ", ".join(step.input_variables) if step.input_variables else "none"
+        next_s = step.next_step_sequence_number
+        next_label = "END" if next_s == -1 else ("CONDITIONAL" if next_s == -2 else str(next_s))
+        lines.append(f"  [{step.step}] {step.title} ({step.task_type})")
+        lines.append(f"      task: {step.task_description.strip()[:120]}")
+        lines.append(f"      tools: {primary} | fallback: {fallback}")
+        lines.append(f"      inputs: {inputs}")
+        lines.append(f"      output: {step.output_variable} -> {step.output_schema}")
+        lines.append(f"      next: {next_label}")
+    return "\n".join(lines)
+
+
 def format_event(event) -> str:
     """Format an event for CLI display."""
     if isinstance(event, TaskSubmitted):
         return f"Task submitted: {event.instruction}"
     elif isinstance(event, PlanCreated):
-        n_steps = len(event.plan.steps)
-        lines = [f"Plan created: {n_steps} steps"]
-        lines.append(f"  Reasoning: {event.plan.reasoning.strip()[:200]}")
-        lines.append("")
-        for step in event.plan.steps:
-            primary = ", ".join(step.primary_tools) if step.primary_tools else "none"
-            fallback = ", ".join(step.fallback_tools) if step.fallback_tools else "none"
-            inputs = ", ".join(step.input_variables) if step.input_variables else "none"
-            next_s = step.next_step_sequence_number
-            next_label = "END" if next_s == -1 else ("CONDITIONAL" if next_s == -2 else str(next_s))
-            lines.append(f"  [{step.step}] {step.title} ({step.task_type})")
-            lines.append(f"      task: {step.task_description.strip()[:120]}")
-            lines.append(f"      tools: {primary} | fallback: {fallback}")
-            lines.append(f"      inputs: {inputs}")
-            lines.append(f"      output: {step.output_variable} -> {step.output_schema}")
-            lines.append(f"      next: {next_label}")
-        return "\n".join(lines)
+        return print_plan(event.plan)
     elif isinstance(event, ValidationPassed):
         return f"Validation passed: {event.checks_passed} checks passed"
     elif isinstance(event, ValidationFailed):
