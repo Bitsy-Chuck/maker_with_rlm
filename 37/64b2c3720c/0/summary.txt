@@ -1,0 +1,30 @@
+Now the plan will show like:
+
+```
+Plan created: 8 steps
+  Reasoning: Simple plan to create a video...
+
+  [0] check_available_video_generation_tools (action_step)
+      task: Check what video generation tools are available on the system...
+      tools: Bash | fallback: none
+      inputs: none
+      output: step_0_output -> {tools_available: list}
+      next: 1
+
+  [1] gather_user_video_requirements (action_step)
+      task: Gather specific requirements for the video...
+      tools: none | fallback: none
+      inputs: step_0_output.tools_available
+      output: step_1_output -> {requirements: string}
+      next: 2
+
+  [3] determine_video_generation_method (conditional_step)
+      task: Decide which method to use based on available tools...
+      tools: none | fallback: none
+      inputs: step_0_output.tools_available
+      output: step_3_output -> {next_step: int, reason: string}
+      next: CONDITIONAL
+  ...
+```
+
+Now you can see the full flow — inputs, outputs, routing, and where it breaks. Try it again.
