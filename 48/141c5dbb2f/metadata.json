@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "48141c5dbb2f",
+  "strategy": "auto-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/maker/prompts/__init__.py",
+    "src/maker/prompts/executor_step.py",
+    "src/maker/prompts/planner_system.py",
+    "src/maker/prompts/planner_user.py",
+    "src/maker/prompts/quality_appropriately_merged.py",
+    "src/maker/prompts/quality_max_k_tools.py",
+    "src/maker/prompts/quality_maximally_decomposed.py",
+    "src/maker/prompts/quality_non_overlapping.py",
+    "src/maker/prompts/quality_self_contained.py",
+    "src/maker/prompts/quality_single_purpose.py",
+    "src/maker/tools/__init__.py",
+    "src/maker/tools/builtin.py",
+    "src/maker/tools/registry.py",
+    "tests/test_prompts/__init__.py",
+    "tests/test_prompts/test_prompts.py",
+    "tests/test_tools/__init__.py",
+    "tests/test_tools/test_registry.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/48/141c5dbb2f/0/metadata.json",
+      "transcript": "/48/141c5dbb2f/0/full.jsonl",
+      "context": "",
+      "content_hash": "/48/141c5dbb2f/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 26,
+    "cache_creation_tokens": 50038,
+    "cache_read_tokens": 1324755,
+    "output_tokens": 2073,
+    "api_call_count": 24
+  }
+}

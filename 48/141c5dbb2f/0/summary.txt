@@ -1,0 +1,17 @@
+## Batch Report
+
+**Task 1: Tool Registry** - 17 tests passing
+- `ToolRegistry` with builtin/MCP registration, unregistration, validation
+- `ToolRegistry.with_defaults()` pre-registers 9 Claude Code builtins
+- Duplicate names raise `ValueError`
+- `get_mcp_server_configs()` returns SDK-compatible format
+
+**Task 2: Prompts System** - 8 tests passing
+- `load_prompt()` rewritten as dict-based lookup (replaces M2's `importlib` approach)
+- `planner_system` adapted from SPEC.md: `human_input_tool` → `AskUserQuestion`, all `ask_duckie` removed
+- `planner_user`, `executor_step`, 6 quality prompts created
+- All prompts loadable with optional kwarg formatting
+
+**Full suite: 84/84 passed in 0.11s**
+
+Ready for feedback.

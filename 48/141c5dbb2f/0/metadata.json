@@ -1,0 +1,39 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "48141c5dbb2f",
+  "session_id": "2568c2ea-7603-486c-82f3-78e1cfb87231",
+  "strategy": "auto-commit",
+  "created_at": "2026-02-14T14:12:15.452038Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/maker/prompts/__init__.py",
+    "src/maker/prompts/executor_step.py",
+    "src/maker/prompts/planner_system.py",
+    "src/maker/prompts/planner_user.py",
+    "src/maker/prompts/quality_appropriately_merged.py",
+    "src/maker/prompts/quality_max_k_tools.py",
+    "src/maker/prompts/quality_maximally_decomposed.py",
+    "src/maker/prompts/quality_non_overlapping.py",
+    "src/maker/prompts/quality_self_contained.py",
+    "src/maker/prompts/quality_single_purpose.py",
+    "src/maker/tools/__init__.py",
+    "src/maker/tools/builtin.py",
+    "src/maker/tools/registry.py",
+    "tests/test_prompts/__init__.py",
+    "tests/test_prompts/test_prompts.py",
+    "tests/test_tools/__init__.py",
+    "tests/test_tools/test_registry.py"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "2744ba39-3223-44b4-80ad-ea9a81130318",
+  "checkpoint_transcript_start": 1108,
+  "transcript_lines_at_start": 1108,
+  "token_usage": {
+    "input_tokens": 26,
+    "cache_creation_tokens": 50038,
+    "cache_read_tokens": 1324755,
+    "output_tokens": 2073,
+    "api_call_count": 24
+  }
+}
