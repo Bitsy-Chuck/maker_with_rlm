@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import json
 from maker import run_task
 from maker.core.models import TaskConfig
 from maker.core.events import (
@@ -35,13 +36,18 @@ def format_event(event) -> str:
     elif isinstance(event, StepStarted):
         return f"Step {event.step} started: {event.title}"
     elif isinstance(event, StepCompleted):
-        return f"Step {event.step} completed: {event.title}"
+        output_str = json.dumps(event.output, indent=2) if isinstance(event.output, dict) else str(event.output)
+        return f"Step {event.step} completed: {event.title}\n  Output: {output_str}"
     elif isinstance(event, StepFailed):
         return f"Step {event.step} failed: {event.error}"
     elif isinstance(event, TaskCompleted):
         cost = event.total_cost_usd
         duration_s = event.total_duration_ms / 1000
-        return f"Task completed | Cost: ${cost:.2f} | Duration: {duration_s:.1f}s"
+        # Show final step outputs
+        steps = event.result.get("steps", [])
+        final_output = steps[-1]["output"] if steps else {}
+        result_str = json.dumps(final_output, indent=2) if isinstance(final_output, dict) else str(final_output)
+        return f"Task completed | Cost: ${cost:.2f} | Duration: {duration_s:.1f}s\n\nResult:\n{result_str}"
     elif isinstance(event, TaskFailed):
         return f"Task failed at step {event.step}: {event.error}"
     else:
