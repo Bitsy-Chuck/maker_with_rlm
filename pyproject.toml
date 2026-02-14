@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "maker"
+version = "0.1.0"
+description = "MAKER: Maximal Agentic Decomposition with Error Correction and Red-flagging"
+requires-python = ">=3.11"
+dependencies = [
+    "claude-agent-sdk",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+]
+
+[project.scripts]
+maker = "maker.cli.main:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/maker"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
