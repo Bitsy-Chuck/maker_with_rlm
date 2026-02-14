@@ -1,0 +1,49 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "64914f0b1b77",
+  "strategy": "auto-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "pyproject.toml",
+    "src/maker/__init__.py",
+    "src/maker/__pycache__/__init__.cpython-311.pyc",
+    "src/maker/core/__init__.py",
+    "src/maker/core/__pycache__/__init__.cpython-311.pyc",
+    "src/maker/core/__pycache__/events.cpython-311.pyc",
+    "src/maker/core/__pycache__/models.cpython-311.pyc",
+    "src/maker/core/__pycache__/module.cpython-311.pyc",
+    "src/maker/core/events.py",
+    "src/maker/core/models.py",
+    "src/maker/core/module.py",
+    "tests/__init__.py",
+    "tests/__pycache__/__init__.cpython-311.pyc",
+    "tests/__pycache__/conftest.cpython-311-pytest-9.0.2.pyc",
+    "tests/conftest.py",
+    "tests/test_core/__init__.py",
+    "tests/test_core/__pycache__/__init__.cpython-311.pyc",
+    "tests/test_core/__pycache__/test_events.cpython-311-pytest-9.0.2.pyc",
+    "tests/test_core/__pycache__/test_models.cpython-311-pytest-9.0.2.pyc",
+    "tests/test_core/__pycache__/test_module.cpython-311-pytest-9.0.2.pyc",
+    "tests/test_core/test_events.py",
+    "tests/test_core/test_models.py",
+    "tests/test_core/test_module.py",
+    "uv.lock"
+  ],
+  "sessions": [
+    {
+      "metadata": "/64/914f0b1b77/0/metadata.json",
+      "transcript": "/64/914f0b1b77/0/full.jsonl",
+      "context": "",
+      "content_hash": "/64/914f0b1b77/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 39,
+    "cache_creation_tokens": 21811,
+    "cache_read_tokens": 2613523,
+    "output_tokens": 3929,
+    "api_call_count": 37
+  }
+}
