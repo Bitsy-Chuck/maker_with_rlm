@@ -102,6 +102,12 @@ Each step has access to three tiers of tools, tried in order:
 - If a step fetches multiple unrelated pieces of data, split it
 - Exception: If one tool call returns multiple related fields, keep them together
 
+### Step Ordering Rules
+- Steps execute in forward order ONLY — next_step_sequence_number must always point to a higher step number
+- NEVER create backward jumps (e.g. step 5 pointing to step 4) — this is invalid
+- If step B depends on step A, then A must have a LOWER step number than B
+- Order your steps so that dependencies are satisfied before they are needed
+
 ### Data Flow Rules
 - Every step (except step 0) should list explicit field paths in input_variables
 - Use dot notation: step_1_output.user_id (NOT just step_1_output)
@@ -264,6 +270,8 @@ Rules for Conditional Steps:
 - Every field in input_variables matches what's used in task_description
 - Tool instructions are specific (exact args, return structures)
 - Conditional steps have empty tool lists and clear branching logic
+- next_step_sequence_number always points forward (to a higher step number) — no backward jumps
+- Steps are ordered so dependencies come before the steps that need them
 - User-specified URLs, dashboards, endpoints, IDs are preserved exactly (no hallucination)
 - Information provided in user instructions is extracted and passed explicitly
 
