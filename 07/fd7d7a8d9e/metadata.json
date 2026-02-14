@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "07fd7d7a8d9e",
+  "strategy": "auto-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/maker/prompts/__init__.py",
+    "src/maker/prompts/yaml_fixer.py",
+    "src/maker/yaml_cleaner/__init__.py",
+    "src/maker/yaml_cleaner/cleaner.py",
+    "src/maker/yaml_cleaner/fixes.py",
+    "tests/test_yaml_cleaner/__init__.py",
+    "tests/test_yaml_cleaner/test_cleaner.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/07/fd7d7a8d9e/0/metadata.json",
+      "transcript": "/07/fd7d7a8d9e/0/full.jsonl",
+      "context": "",
+      "content_hash": "/07/fd7d7a8d9e/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 24,
+    "cache_creation_tokens": 37896,
+    "cache_read_tokens": 1087930,
+    "output_tokens": 630,
+    "api_call_count": 22
+  }
+}

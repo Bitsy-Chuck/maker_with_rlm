@@ -1,0 +1,21 @@
+## Milestone 2 Complete — Batch Report
+
+| Task | Status | Tests |
+|------|--------|-------|
+| 1. YAMLCleaner Core + Fence Stripping | Done | 23/23 |
+| 2. YAML Fixer Prompt + Prompt Loader | Done | verified |
+
+**Files created:**
+- `src/maker/yaml_cleaner/__init__.py` — package exports
+- `src/maker/yaml_cleaner/cleaner.py` — `YAMLCleaner` with 3-stage pipeline
+- `src/maker/yaml_cleaner/fixes.py` — `strip_fences`, `fix_tabs`, `fix_trailing_commas`, `attempt_deterministic_fixes`
+- `src/maker/prompts/__init__.py` — `load_prompt()` utility
+- `src/maker/prompts/yaml_fixer.py` — `YAML_FIXER_PROMPT` template
+- `tests/test_yaml_cleaner/__init__.py`
+- `tests/test_yaml_cleaner/test_cleaner.py` — 23 tests
+
+**Bug fixed during implementation:** Python 3 deletes `except ... as var` variables after the except block exits. Captured error message into `first_error_msg` string before leaving the block.
+
+**Full suite: 59/59 passed in 0.11s.**
+
+Ready for feedback.
