@@ -1,0 +1,7 @@
+i dont see the output ❯ maker "what is the time"                                        ─╯
+Task submitted: what is the time
+Plan created: 1 steps
+Validation passed: 13 checks passed
+Step 0 started: retrieve_current_system_time
+Step 0 completed: retrieve_current_system_time
+Task completed | Cost: $0.00 | Duration: 8.3s
