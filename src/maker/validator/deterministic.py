@@ -222,6 +222,19 @@ def check_no_orphan_steps(plan: Plan) -> CheckResult:
     return CheckResult(name="no_orphan_steps", passed=True, message="No orphan steps")
 
 
+def check_no_backward_jumps(plan: Plan) -> CheckResult:
+    """Check that next_step_sequence_number never points to an earlier step."""
+    for step in plan.steps:
+        nsn = step.next_step_sequence_number
+        if nsn >= 0 and nsn <= step.step:
+            return CheckResult(
+                name="no_backward_jumps",
+                passed=False,
+                message=f"Step {step.step} jumps backward to step {nsn}; reorder steps so dependencies come first",
+            )
+    return CheckResult(name="no_backward_jumps", passed=True, message="No backward jumps")
+
+
 def check_output_schema_exists(plan: Plan) -> CheckResult:
     """Check every step has a non-empty output_schema."""
     for step in plan.steps:
@@ -251,5 +264,6 @@ def run_all_deterministic_checks(plan: Plan, registry: ToolRegistry) -> list[Che
         check_conditional_returns_minus_2(plan),
         check_final_step_returns_minus_1(plan),
         check_no_orphan_steps(plan),
+        check_no_backward_jumps(plan),
         check_output_schema_exists(plan),
     ]

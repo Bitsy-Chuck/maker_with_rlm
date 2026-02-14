@@ -12,6 +12,7 @@ from maker.validator.deterministic import (
     check_conditional_returns_minus_2,
     check_final_step_returns_minus_1,
     check_no_orphan_steps,
+    check_no_backward_jumps,
     check_output_schema_exists,
     run_all_deterministic_checks,
     CheckResult,
@@ -327,6 +328,45 @@ class TestNoOrphanSteps:
         result = check_no_orphan_steps(make_plan(steps))
         assert not result.passed
         assert 1 in [int(x) for x in result.message.split("[")[1].split("]")[0].split(", ")]
+
+
+class TestNoBackwardJumps:
+    def test_forward_jump_passes(self):
+        steps = [make_step(step=0, next_step_sequence_number=1),
+                 make_step(step=1, next_step_sequence_number=-1)]
+        result = check_no_backward_jumps(make_plan(steps))
+        assert result.passed
+
+    def test_backward_jump_fails(self):
+        steps = [
+            make_step(step=0, next_step_sequence_number=1),
+            make_step(step=1, next_step_sequence_number=2),
+            make_step(step=2, next_step_sequence_number=1),  # backward
+        ]
+        result = check_no_backward_jumps(make_plan(steps))
+        assert not result.passed
+        assert "Step 2 jumps backward to step 1" in result.message
+
+    def test_self_loop_fails(self):
+        steps = [make_step(step=0, next_step_sequence_number=0)]
+        result = check_no_backward_jumps(make_plan(steps))
+        assert not result.passed
+
+    def test_terminal_steps_pass(self):
+        """next_step -1 and -2 should not be flagged."""
+        steps = [
+            make_step(step=0, next_step_sequence_number=1),
+            make_step(step=1, task_type="conditional_step", primary_tools=[],
+                     fallback_tools=[], primary_tool_instructions="",
+                     fallback_tool_instructions="", next_step_sequence_number=-2),
+            make_step(step=2, next_step_sequence_number=-1),
+        ]
+        result = check_no_backward_jumps(make_plan(steps))
+        assert result.passed
+
+    def test_single_step_passes(self):
+        result = check_no_backward_jumps(make_plan())
+        assert result.passed
 
 
 class TestOutputSchemaExists:
