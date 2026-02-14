@@ -284,6 +284,50 @@ class TestNoOrphanSteps:
         result = check_no_orphan_steps(make_plan())
         assert result.passed
 
+    def test_conditional_step_branches_reachable(self):
+        """Steps after a conditional step should be reachable as branch targets."""
+        steps = [
+            make_step(step=0, next_step_sequence_number=1),
+            make_step(step=1, task_type="conditional_step", primary_tools=[],
+                     fallback_tools=[], primary_tool_instructions="",
+                     fallback_tool_instructions="", next_step_sequence_number=-2),
+            make_step(step=2, next_step_sequence_number=4),  # branch A
+            make_step(step=3, next_step_sequence_number=4),  # branch B
+            make_step(step=4, next_step_sequence_number=-1),  # merge point
+        ]
+        result = check_no_orphan_steps(make_plan(steps))
+        assert result.passed
+
+    def test_conditional_with_many_branches(self):
+        """Real-world case: conditional routes to multiple paths that merge."""
+        steps = [
+            make_step(step=0, next_step_sequence_number=1),
+            make_step(step=1, next_step_sequence_number=2),
+            make_step(step=2, task_type="conditional_step", primary_tools=[],
+                     fallback_tools=[], primary_tool_instructions="",
+                     fallback_tool_instructions="", next_step_sequence_number=-2),
+            make_step(step=3, next_step_sequence_number=6),  # branch A
+            make_step(step=4, next_step_sequence_number=6),  # branch B
+            make_step(step=5, next_step_sequence_number=4),  # branch C -> B
+            make_step(step=6, next_step_sequence_number=-1),  # final
+        ]
+        result = check_no_orphan_steps(make_plan(steps))
+        assert result.passed
+
+    def test_orphan_before_conditional_still_fails(self):
+        """Steps before a conditional that aren't linked should still be orphans."""
+        steps = [
+            make_step(step=0, next_step_sequence_number=2),  # skips step 1
+            make_step(step=1, next_step_sequence_number=-1),  # orphan
+            make_step(step=2, task_type="conditional_step", primary_tools=[],
+                     fallback_tools=[], primary_tool_instructions="",
+                     fallback_tool_instructions="", next_step_sequence_number=-2),
+            make_step(step=3, next_step_sequence_number=-1),
+        ]
+        result = check_no_orphan_steps(make_plan(steps))
+        assert not result.passed
+        assert 1 in [int(x) for x in result.message.split("[")[1].split("]")[0].split(", ")]
+
 
 class TestOutputSchemaExists:
     def test_non_empty_schema_passes(self):

@@ -184,7 +184,11 @@ def check_final_step_returns_minus_1(plan: Plan) -> CheckResult:
 
 
 def check_no_orphan_steps(plan: Plan) -> CheckResult:
-    """Check all steps are reachable from step 0 via next_step_sequence_number chain."""
+    """Check all steps are reachable from step 0 via next_step_sequence_number chain.
+
+    Conditional steps (nsn == -2) can branch to any higher-numbered step,
+    so all steps after a conditional are treated as reachable.
+    """
     if len(plan.steps) <= 1:
         return CheckResult(name="no_orphan_steps", passed=True, message="No orphan steps")
 
@@ -197,7 +201,13 @@ def check_no_orphan_steps(plan: Plan) -> CheckResult:
         if step is None:
             continue
         nsn = step.next_step_sequence_number
-        if nsn >= 0 and nsn not in reachable:
+        if nsn == -2:
+            # Conditional step: all higher-numbered steps are potential branch targets
+            for s in plan.steps:
+                if s.step > current and s.step not in reachable:
+                    reachable.add(s.step)
+                    queue.append(s.step)
+        elif nsn >= 0 and nsn not in reachable:
             reachable.add(nsn)
             queue.append(nsn)
 
