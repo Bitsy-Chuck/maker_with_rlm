@@ -6,6 +6,8 @@
 
 **Architecture:** Two-layer validation: deterministic checks (always on, pass/fail) and LLM quality checks (optional, 0-1 scores). Each check is an independent function. Validator orchestrates all checks and emits `ValidationPassed` or `ValidationFailed`.
 
+**Implementation note:** Quality prompts come in two flavors: per-step checks (`{step_yaml}`) and plan-level checks (`{plan_yaml}`). The `non_overlapping` and `appropriately_merged` checks are plan-level — they evaluate the whole plan at once rather than comparing step pairs. The quality checker dispatches to the correct prompt kwargs based on check type.
+
 **Tech Stack:** Python 3.11+, `pytest`, `pytest-asyncio`
 
 **Depends On:** M1 (models, events), M3 (tool registry for tool validation)
@@ -499,8 +501,14 @@ class TestQualityResult:
 
 ```python
 from dataclasses import dataclass
-from maker.core.models import Plan
+from maker.core.models import Plan, PlanStep
 from maker.prompts import load_prompt
+
+DEFAULT_MAX_K = 5
+
+# Plan-level checks use {plan_yaml}; per-step checks use {step_yaml}
+_PLAN_LEVEL_CHECKS = {"non_overlapping", "appropriately_merged"}
+_EXTRA_KWARGS = {"max_k_tools": {"max_k": DEFAULT_MAX_K}}
 
 
 @dataclass
@@ -519,6 +527,10 @@ class QualityChecker:
     async def run_all(self, plan: Plan) -> list[QualityResult]: ...
     def aggregate_score(self, results: list[QualityResult]) -> float: ...
     async def _call_llm_for_score(self, prompt: str) -> float: ...
+
+def _build_prompt(check_name: str, plan: Plan) -> str:
+    """Dispatches to plan_yaml for plan-level checks, step_yaml for per-step."""
+    ...
 ```
 
 **Step 4: Run tests — expect PASS**
@@ -709,4 +721,5 @@ git commit -m "feat: add validator module orchestrating checks"
 - [ ] `ValidatorModule` emits `ValidationPassed` for valid plans
 - [ ] `ValidatorModule` emits `ValidationFailed` with error details for invalid plans
 - [ ] Quality checks can be enabled/disabled via config
+- [ ] Quality prompts use `{plan_yaml}` for plan-level checks, `{step_yaml}` for per-step checks
 - [ ] All code committed
