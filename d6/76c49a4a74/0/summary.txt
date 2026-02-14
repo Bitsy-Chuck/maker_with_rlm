@@ -1,0 +1,1 @@
+247/247 passing. Fixed: conditional steps (nsn == -2) now treat all higher-numbered steps as reachable branch targets, while orphans *before* a conditional are still caught. Want me to commit?
