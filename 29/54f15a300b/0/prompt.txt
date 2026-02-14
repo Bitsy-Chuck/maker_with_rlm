@@ -1,0 +1,1 @@
+move it to a new func called print_plan

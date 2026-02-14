@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "2954f15a300b",
+  "session_id": "85a72529-4e44-41e8-9b13-e52c76f22af1",
+  "strategy": "auto-commit",
+  "created_at": "2026-02-14T21:37:34.807172Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/maker/cli/main.py"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "380a4623-92d5-4d83-a065-f21545e35276",
+  "checkpoint_transcript_start": 411,
+  "transcript_lines_at_start": 411,
+  "token_usage": {
+    "input_tokens": 7,
+    "cache_creation_tokens": 2909,
+    "cache_read_tokens": 661387,
+    "output_tokens": 78,
+    "api_call_count": 5
+  }
+}

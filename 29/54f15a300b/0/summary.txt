@@ -1,0 +1,1 @@
+Done. `print_plan` is now its own function, `format_event` just calls it.

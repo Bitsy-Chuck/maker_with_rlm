@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "2954f15a300b",
+  "strategy": "auto-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/maker/cli/main.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/29/54f15a300b/0/metadata.json",
+      "transcript": "/29/54f15a300b/0/full.jsonl",
+      "context": "",
+      "content_hash": "/29/54f15a300b/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 7,
+    "cache_creation_tokens": 2909,
+    "cache_read_tokens": 661387,
+    "output_tokens": 78,
+    "api_call_count": 5
+  }
+}
