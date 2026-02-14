@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "9088dc81ce3c",
+  "session_id": "85a72529-4e44-41e8-9b13-e52c76f22af1",
+  "strategy": "auto-commit",
+  "created_at": "2026-02-14T21:29:06.334835Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".worktrees/milestone-9/src/maker/__init__.py",
+    ".worktrees/milestone-9/src/maker/cli/__init__.py",
+    ".worktrees/milestone-9/src/maker/cli/main.py",
+    ".worktrees/milestone-9/src/maker/core/orchestrator.py",
+    ".worktrees/milestone-9/tests/test_api.py",
+    ".worktrees/milestone-9/tests/test_cli/__init__.py",
+    ".worktrees/milestone-9/tests/test_cli/test_main.py",
+    ".worktrees/milestone-9/tests/test_core/test_orchestrator.py",
+    ".worktrees/milestone-9/tests/test_integration/__init__.py",
+    ".worktrees/milestone-9/tests/test_integration/test_end_to_end.py"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "93148e55-8903-411b-a605-2b29559ab7c8",
+  "checkpoint_transcript_start": 75,
+  "transcript_lines_at_start": 75,
+  "token_usage": {
+    "input_tokens": 68,
+    "cache_creation_tokens": 170372,
+    "cache_read_tokens": 5877352,
+    "output_tokens": 7308,
+    "api_call_count": 59
+  }
+}

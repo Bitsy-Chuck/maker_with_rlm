@@ -1,0 +1,7 @@
+Merged and verified. 241 tests passing on main. You can now run `maker` from the main project directory:
+
+```bash
+cd /Users/air/Dropbox/air/projects/maker
+source .venv/bin/activate
+maker "Your task here"
+```
