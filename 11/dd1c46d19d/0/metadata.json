@@ -1,0 +1,20 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "11dd1c46d19d",
+  "session_id": "71109e1e-d1ab-4988-a17c-7a9ca2af8948",
+  "strategy": "auto-commit",
+  "created_at": "2026-02-14T14:10:12.292267Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "tests/test_prompts/test_prompts.py"
+  ],
+  "agent": "Claude Code",
+  "token_usage": {
+    "input_tokens": 5,
+    "cache_creation_tokens": 26465,
+    "cache_read_tokens": 46286,
+    "output_tokens": 23,
+    "api_call_count": 2
+  }
+}

@@ -1,0 +1,47 @@
+Yes, git worktrees work perfectly with Claude Code. Here's the summary:
+
+## What are git worktrees?
+
+They create isolated workspaces sharing the same repo — you can work on multiple branches simultaneously without switching.
+
+## How to use them with Claude Code
+
+**1. Create a worktree:**
+```bash
+git worktree add .worktrees/feature-name -b feature/feature-name
+```
+
+**2. Launch a new Claude Code session in that worktree:**
+```bash
+cd .worktrees/feature-name
+claude
+```
+
+Each Claude Code session operates independently in its own worktree, so you can have parallel work happening without conflicts.
+
+**3. Make sure the worktree directory is gitignored:**
+```bash
+echo ".worktrees/" >> .gitignore
+```
+
+**4. When done, clean up:**
+```bash
+git worktree remove .worktrees/feature-name
+```
+
+## Why this is useful
+
+| Use case | Benefit |
+|----------|---------|
+| Parallel features | Work on auth in one terminal, UI in another |
+| Plan execution | Isolate implementation from your main working tree |
+| Testing risky changes | Experiment without touching your main checkout |
+| Code review | Check out a PR branch without disrupting current work |
+
+## Practical tips
+
+- I have a built-in workflow for this — when you ask me to start feature work, just say "use a worktree" and I'll handle the setup (directory selection, gitignore verification, dependency install, baseline tests)
+- Store worktrees in `.worktrees/` (project-local, hidden) or `~/.config/superpowers/worktrees/<project>/` (global)
+- Always run your project's setup commands (`npm install`, `pip install`, etc.) in the new worktree since `node_modules`/venvs aren't shared
+
+Want me to set one up for something you're working on?
