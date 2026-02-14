@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "8644512847a4",
+  "session_id": "55ebbf4a-f929-4230-83d1-b37c34063348",
+  "strategy": "auto-commit",
+  "created_at": "2026-02-14T15:38:07.128845Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".worktrees/milestone-8/src/maker/executor/executor.py",
+    ".worktrees/milestone-8/src/maker/executor/result_collector.py",
+    ".worktrees/milestone-8/src/maker/voting/factory.py",
+    ".worktrees/milestone-8/tests/test_executor/test_executor.py",
+    ".worktrees/milestone-8/tests/test_executor/test_result_collector.py",
+    ".worktrees/milestone-8/tests/test_voting/test_factory.py"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "c19d0f8d-1c2b-4629-a81d-d086e85a78b5",
+  "checkpoint_transcript_start": 250,
+  "transcript_lines_at_start": 250,
+  "token_usage": {
+    "input_tokens": 4,
+    "cache_creation_tokens": 361,
+    "cache_read_tokens": 158529,
+    "output_tokens": 27,
+    "api_call_count": 2
+  }
+}
