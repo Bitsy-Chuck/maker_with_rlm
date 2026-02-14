@@ -27,7 +27,11 @@ def format_event(event) -> str:
         return f"Task submitted: {event.instruction}"
     elif isinstance(event, PlanCreated):
         n_steps = len(event.plan.steps)
-        return f"Plan created: {n_steps} steps"
+        lines = [f"Plan created: {n_steps} steps"]
+        for step in event.plan.steps:
+            tools = ", ".join(step.primary_tools) if step.primary_tools else "none"
+            lines.append(f"  [{step.step}] {step.title} ({step.task_type}) | tools: {tools}")
+        return "\n".join(lines)
     elif isinstance(event, ValidationPassed):
         return f"Validation passed: {event.checks_passed} checks passed"
     elif isinstance(event, ValidationFailed):
