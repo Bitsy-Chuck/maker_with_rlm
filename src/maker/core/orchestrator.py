@@ -62,7 +62,7 @@ class Orchestrator:
                     plan = plan_event.plan
                     validated = True
                 elif isinstance(event, ValidationFailed):
-                    pass  # will retry on next loop iteration
+                    self._planner.set_validation_feedback(event.errors)
 
             if validated:
                 break

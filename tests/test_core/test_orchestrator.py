@@ -124,6 +124,59 @@ class TestOrchestrator:
         assert planner_call_count == 2
         assert validator_call_count == 2
 
+    async def test_validation_errors_fed_back_to_planner(self):
+        """Orchestrator should pass validation errors to planner for retry."""
+        config = make_config()
+        registry = ToolRegistry()
+        registry.register_builtin("Read", "Read files")
+
+        orchestrator = Orchestrator(config=config, registry=registry)
+
+        feedback_received = []
+
+        original_set = orchestrator._planner.set_validation_feedback
+
+        def tracking_set(errors):
+            feedback_received.append(errors)
+            original_set(errors)
+
+        orchestrator._planner.set_validation_feedback = tracking_set
+
+        async def mock_planner_process(event):
+            if isinstance(event, TaskSubmitted):
+                yield PlanCreated(timestamp=time.time(), plan=make_valid_plan())
+
+        call_count = 0
+
+        async def mock_validator_process(event):
+            nonlocal call_count
+            if isinstance(event, PlanCreated):
+                call_count += 1
+                if call_count == 1:
+                    yield ValidationFailed(
+                        timestamp=time.time(),
+                        errors=[{"check": "reachability", "message": "Orphan steps: [4, 5]"}],
+                    )
+                else:
+                    yield ValidationPassed(timestamp=time.time(), checks_passed=10)
+
+        async def mock_executor_process(event):
+            if isinstance(event, ValidationPassed):
+                yield TaskCompleted(
+                    timestamp=time.time(),
+                    result={"status": "completed", "steps": []},
+                    total_cost_usd=0.0, total_duration_ms=0,
+                )
+
+        orchestrator._planner.process = mock_planner_process
+        orchestrator._validator.process = mock_validator_process
+        orchestrator._executor.process = mock_executor_process
+
+        _ = [e async for e in orchestrator.run()]
+
+        assert len(feedback_received) == 1
+        assert feedback_received[0][0]["message"] == "Orphan steps: [4, 5]"
+
     async def test_max_planner_retries_exceeded(self):
         """If planner fails max_planner_retries times, task should fail."""
         config = TaskConfig(instruction="test", max_planner_retries=2)

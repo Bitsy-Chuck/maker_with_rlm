@@ -114,3 +114,55 @@ class TestPlannerModule:
 
         with pytest.raises(RuntimeError, match="SDK connection failed"):
             _ = [e async for e in planner.process(make_task_submitted())]
+
+    async def test_validation_feedback_included_in_retry_prompt(self):
+        """When validation errors are set, planner should include them in the prompt."""
+        registry = ToolRegistry()
+        registry.register_builtin("Read", "Read files")
+
+        planner = PlannerModule(registry=registry)
+
+        prompt_used = None
+
+        async def capture_prompt(prompt, **kwargs):
+            nonlocal prompt_used
+            prompt_used = prompt
+            return make_valid_yaml_output()
+
+        planner._call_sdk = capture_prompt
+        planner.set_validation_feedback([
+            {"check": "reachability", "message": "Orphan steps not reachable from step 0: [4, 5]"},
+            {"check": "final_step", "message": "Final step must have next_step_sequence_number=-1"},
+        ])
+
+        _ = [e async for e in planner.process(make_task_submitted())]
+
+        assert "Orphan steps not reachable from step 0" in prompt_used
+        assert "next_step_sequence_number=-1" in prompt_used
+        assert "previous plan failed validation" in prompt_used
+
+    async def test_validation_feedback_cleared_after_use(self):
+        """Validation feedback should be cleared after one use."""
+        registry = ToolRegistry()
+        registry.register_builtin("Read", "Read files")
+
+        planner = PlannerModule(registry=registry)
+
+        prompts = []
+
+        async def capture_prompt(prompt, **kwargs):
+            prompts.append(prompt)
+            return make_valid_yaml_output()
+
+        planner._call_sdk = capture_prompt
+        planner.set_validation_feedback([
+            {"check": "test", "message": "bad plan"},
+        ])
+
+        # First call should include feedback
+        _ = [e async for e in planner.process(make_task_submitted())]
+        # Second call should not
+        _ = [e async for e in planner.process(make_task_submitted())]
+
+        assert "previous plan failed validation" in prompts[0]
+        assert "previous plan failed validation" not in prompts[1]

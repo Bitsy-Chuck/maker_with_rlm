@@ -12,6 +12,11 @@ class PlannerModule(Module):
     def __init__(self, registry: ToolRegistry):
         self._registry = registry
         self._yaml_cleaner = YAMLCleaner()
+        self._validation_errors: list[dict] | None = None
+
+    def set_validation_feedback(self, errors: list[dict]) -> None:
+        """Set validation errors from a previous attempt so the next plan can fix them."""
+        self._validation_errors = errors
 
     async def process(self, event) -> AsyncIterator:
         if not isinstance(event, TaskSubmitted):
@@ -25,6 +30,16 @@ class PlannerModule(Module):
             instruction=event.instruction,
             tools_list=tools_list,
         )
+
+        # Append validation feedback if retrying
+        if self._validation_errors:
+            error_lines = "\n".join(f"- {e['message']}" for e in self._validation_errors)
+            user_prompt += (
+                f"\n\nYour previous plan failed validation with these errors:\n"
+                f"{error_lines}\n\n"
+                f"Generate a corrected plan that fixes these issues."
+            )
+            self._validation_errors = None
 
         # 2. Call SDK
         raw_output = await self._call_sdk(user_prompt, system_prompt=system_prompt, config=event.config)
