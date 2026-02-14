@@ -1,0 +1,4 @@
+Done. Updated the milestone doc with:
+- Architecture note explaining the two prompt flavors (`plan_yaml` vs `step_yaml`)
+- Updated implementation sketch showing `_PLAN_LEVEL_CHECKS` and `_build_prompt`
+- Added Definition of Done item for the prompt dispatch

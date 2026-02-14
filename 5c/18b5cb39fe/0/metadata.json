@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "5c18b5cb39fe",
+  "session_id": "0638753d-68f4-4070-a38d-d55355ebf4cc",
+  "strategy": "auto-commit",
+  "created_at": "2026-02-14T15:07:19.753322Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "docs/plans/milestones/milestone-05-validator.md"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "e18fd618-a043-4a43-9cd8-d9cf818fc432",
+  "checkpoint_transcript_start": 369,
+  "transcript_lines_at_start": 369,
+  "token_usage": {
+    "input_tokens": 4,
+    "cache_creation_tokens": 1119,
+    "cache_read_tokens": 229350,
+    "output_tokens": 2,
+    "api_call_count": 2
+  }
+}

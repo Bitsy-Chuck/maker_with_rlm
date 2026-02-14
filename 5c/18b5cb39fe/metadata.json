@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "5c18b5cb39fe",
+  "strategy": "auto-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "docs/plans/milestones/milestone-05-validator.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/5c/18b5cb39fe/0/metadata.json",
+      "transcript": "/5c/18b5cb39fe/0/full.jsonl",
+      "context": "",
+      "content_hash": "/5c/18b5cb39fe/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 4,
+    "cache_creation_tokens": 1119,
+    "cache_read_tokens": 229350,
+    "output_tokens": 2,
+    "api_call_count": 2
+  }
+}
