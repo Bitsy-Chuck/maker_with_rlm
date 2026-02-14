@@ -1,0 +1,17 @@
+244/244 passing. The changes:
+
+- **`planner.py`** — Added `set_validation_feedback(errors)` method. When set, appends the error messages to the user prompt so the LLM knows what went wrong and can fix it. Feedback auto-clears after one use.
+- **`orchestrator.py`** — On `ValidationFailed`, calls `self._planner.set_validation_feedback(event.errors)` before the next retry loop iteration.
+- **Tests** — 3 new tests: feedback appears in prompt, feedback clears after use, orchestrator passes errors through.
+
+Now on retries, the planner will see something like:
+
+```
+Your previous plan failed validation with these errors:
+- Orphan steps not reachable from step 0: [4, 5, 6, 7]
+- Final step 7 must have next_step_sequence_number=-1
+
+Generate a corrected plan that fixes these issues.
+```
+
+Want me to commit this?

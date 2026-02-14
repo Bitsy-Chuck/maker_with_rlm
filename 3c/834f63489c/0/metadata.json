@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "3c834f63489c",
+  "session_id": "f1492798-4a44-4e63-b5ca-b7d30d1ada3f",
+  "strategy": "auto-commit",
+  "created_at": "2026-02-14T21:39:21.711346Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/maker/core/orchestrator.py",
+    "src/maker/planner/planner.py",
+    "tests/test_core/test_orchestrator.py",
+    "tests/test_planner/test_planner.py"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "89d43139-5ff9-471d-ab74-b363018a6f01",
+  "checkpoint_transcript_start": 357,
+  "transcript_lines_at_start": 357,
+  "token_usage": {
+    "input_tokens": 16,
+    "cache_creation_tokens": 14978,
+    "cache_read_tokens": 1210540,
+    "output_tokens": 1437,
+    "api_call_count": 14
+  }
+}
