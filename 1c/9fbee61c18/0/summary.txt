@@ -1,0 +1,5 @@
+176 tests pass. The cleanup is done:
+
+- **Prompts** now use `{plan_yaml}` for plan-level checks instead of `{step_a_yaml}`/`{step_b_yaml}`
+- **Quality checker** cleanly dispatches: `plan_yaml` for plan-level checks, `step_yaml` for per-step checks
+- Removed the `_PAIRWISE_CHECKS` hack entirely
